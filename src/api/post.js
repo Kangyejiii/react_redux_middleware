@@ -13,7 +13,7 @@ export const getPosts = async () => {
   return posts;
 };
 
-export const getPostById = async () => {
+export const getPostById = async (id) => {
   await sleep(500);
   return posts.find((post) => post.id === id);
 };
