@@ -9,6 +9,9 @@ import CounterContainer from "./container/CounterContainer";
 import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import ReduxThunk from "redux-thunk";
+import PostListContainer from "./container/PostListContainer";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 
 const store = createStore(
   rootReducer,
@@ -17,9 +20,11 @@ const store = createStore(
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <CounterContainer />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
