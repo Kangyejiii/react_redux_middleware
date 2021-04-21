@@ -1,7 +1,7 @@
 import createHistory from 'history/createBrowserHistory';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
-import { Route, Router } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Apage from './pages/Apage';
 import PostListPage from './pages/PostListPage';
@@ -29,21 +29,23 @@ history.listen((location, action) => {
 });
 
 function App() {
+    const location = useLocation();
+
+    useEffect(() => {
+        ReactGA.pageview(location.pathname + location.search);
+        console.log(`${location.pathname + location.search}`);
+    }, [location]);
+
     return (
-        <Router history={history}>
-            <>
-                <Route
-                    path="/react_redux_middleware"
-                    component={PostListPage}
-                    exact
-                />
-                <Route
-                    path="/react_redux_middleware/:id"
-                    component={PostPage}
-                />
-                <Route path="/react_redux_middleware/a" component={Apage} />
-            </>
-        </Router>
+        <>
+            <Route
+                path="/react_redux_middleware"
+                component={PostListPage}
+                exact
+            />
+            <Route path="/react_redux_middleware/:id" component={PostPage} />
+            <Route path="/react_redux_middleware/a" component={Apage} />
+        </>
     );
 }
 
