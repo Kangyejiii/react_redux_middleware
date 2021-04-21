@@ -1,16 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function PostList({ posts }) {
-  return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post.id}>
-          <Link to={`/${post.id}`}>{post.title}</Link>
-        </li>
-      ))}
-    </ul>
-  );
+    return (
+        <ul>
+            {posts.map((post) => (
+                <li key={post.id}>
+                    <Link to={`react_redux_middleware/${post.id}`}>
+                        {post.title}
+                    </Link>
+                </li>
+            ))}
+        </ul>
+    );
 }
 
 export default PostList;
