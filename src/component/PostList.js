@@ -6,7 +6,9 @@ function PostList({ posts }) {
         <ul>
             {posts.map((post) => (
                 <li key={post.id}>
-                    <Link to={`/${post.id}`}>{post.title}</Link>
+                    <Link to={`/react_redux_middleware/${post.id}`}>
+                        {post.title}
+                    </Link>
                 </li>
             ))}
         </ul>

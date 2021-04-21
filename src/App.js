@@ -7,8 +7,12 @@ import PostPage from './pages/PostPage';
 function App() {
     return (
         <>
-            <Route path="/" component={PostListPage} exact />
-            <Route path="/:id" component={PostPage} />
+            <Route
+                path="/react_redux_middleware/"
+                component={PostListPage}
+                exact
+            />
+            <Route path="/react_redux_middleware/:id" component={PostPage} />
         </>
     );
 }
