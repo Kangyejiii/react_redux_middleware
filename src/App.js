@@ -12,7 +12,7 @@ function App() {
                 component={PostListPage}
                 exact
             />
-            <Route path="/react_redux_middleware/:id" component={PostPage} />
+            <Route path="/:id" component={PostPage} />
         </>
     );
 }
