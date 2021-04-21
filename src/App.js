@@ -23,10 +23,10 @@ import PostPage from './pages/PostPage';
 
 const history = createHistory();
 ReactGA.initialize('UA-195164062-1');
-history.listen((location, action) => {
-    ReactGA.pageview(location.pathname + location.search);
-    console.log(location.pathname);
-});
+// history.listen((location, action) => {
+//     ReactGA.pageview(location.pathname + location.search);
+//     console.log(location.pathname);
+// });
 
 function App() {
     const location = useLocation();
