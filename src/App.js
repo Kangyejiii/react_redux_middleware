@@ -6,8 +6,24 @@ import Apage from './pages/Apage';
 import PostListPage from './pages/PostListPage';
 import PostPage from './pages/PostPage';
 
-ReactGA.initialize('UA-195164062-1');
-ReactGA.pageview(window.location.pathname + window.location.search);
+// ReactGA.initialize('UA-195164062-1');
+// ReactGA.pageview(window.location.pathname + window.location.search);
+
+useEffect(() => {
+    getGA();
+}, []);
+
+const getGA = () => {
+    console.log('페이지 들어옴');
+
+    const pathName = window.location.pathname;
+
+    ReactGA.initialize('UA-195164062-1');
+
+    ReactGA.set({ page: pathName });
+
+    ReactGA.pageview(pathName);
+};
 
 function App() {
     return (
