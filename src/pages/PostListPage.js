@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
 import PostListContainer from '../container/PostListContainer';
@@ -32,7 +32,7 @@ function PostListPage() {
                     'A'
                 )}
             >
-                  {' '}
+                {' '}
                 A 동영상 클릭
             </button>
             <button
