@@ -16,9 +16,9 @@ function PostListPage() {
                 );
                 setExperimentType(variant);
                 console.log(variant);
+                clearInterval(intervalId);
             }
         }, 100);
-        return clearInterval(intervalId);
     }
 
     useEffect(() => {
