@@ -1,30 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
 import PostListContainer from '../container/PostListContainer';
+import useGoogleOptimize from '../hooks/useGoogleOptimize';
+
 function PostListPage() {
-    const [experimentType, setExperimentType] = useState(undefined);
-
-    async function testOptimize() {
-        if (window.dataLayer) {
-            await window.dataLayer.push({ event: 'optimize.activate' });
-        }
-        let intervalId = setInterval(() => {
-            if (window.google_optimize !== undefined) {
-                const variant = window.google_optimize.get(
-                    's0SRBL5pSa-uu_ba8i8CIg'
-                );
-                setExperimentType(variant);
-                console.log(variant);
-                clearInterval(intervalId);
-            }
-        }, 100);
-    }
-
-    useEffect(() => {
-        testOptimize();
-    }, []);
-
+    const variant = useGoogleOptimize('rqR89vK7TZGhHvB9wS_6ig', [false, true]);
     return (
         <>
             <PostListContainer />
@@ -54,8 +35,7 @@ function PostListPage() {
                 B 동영상 클릭
             </button>
             <div>test</div>
-            {!experimentType && <div>Original</div>}
-            {experimentType === '1' && <div>Variant 1</div>}
+            {variant ? <div>Variant 1</div> : <div>Variant 2</div>}
         </>
     );
 }
