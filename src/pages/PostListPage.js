@@ -1,25 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
 import PostListContainer from '../container/PostListContainer';
 function PostListPage() {
     const [experimentType, setExperimentType] = useState('0');
     useEffect(() => {
-        if (window && window.dataLayer && !isLoadingExperiment) {
-            window.dataLayer.push({
-                event: 'optimize.activate',
-                eventCallback: () => {
-                    const experimentType =
-                        window.google_optimize &&
-                        window.google_optimize.get('YtOHnseDRmeXDS6hlb3cYw');
-                    // undefined - when experiment isn't running
-                    // 1,2,3 - when ant variant is running
-                    if (experimentType) {
-                        setExperimentType(experimentType);
-                    }
-                },
-            });
+        if (window.dataLayer) {
+            window.dataLayer.push({ event: 'optimize.activate' });
         }
+        function checkGoogleOptimizeLoading() {
+            if (window.google_optimize !== undefined) {
+                const variant = window.google_optimize.get(
+                    'YtOHnseDRmeXDS6hlb3cYw'
+                );
+                setExperimentType(variant);
+            } else {
+                setTimeout(checkGoogleOptimizeLoading, 100);
+            }
+        }
+        checkGoogleOptimizeLoading();
     }, []);
 
     return (
@@ -52,7 +51,6 @@ function PostListPage() {
             </button>
             {experimentType === '0' && <div>Original</div>}
             {experimentType === '1' && <div>Variant 1</div>}
-            {experimentType === '2' && <div>Variant 2</div>}
         </>
     );
 }
