@@ -11,9 +11,11 @@ function PostListPage() {
         function checkGoogleOptimizeLoading() {
             if (window.google_optimize !== undefined) {
                 const variant = window.google_optimize.get(
-                    'YtOHnseDRmeXDS6hlb3cYw'
+                    'pnjUpQe_TrmxmFDZlzNZnQ'
                 );
                 setExperimentType(variant);
+                console.log('ss');
+                console.log(window.google_optimize, variant);
             } else {
                 setTimeout(checkGoogleOptimizeLoading, 100);
             }
@@ -49,7 +51,8 @@ function PostListPage() {
                 {' '}
                 B 동영상 클릭
             </button>
-            {experimentType === '0' && <div>Original</div>}
+            <div>test</div>
+            {experimentType == 0 && <div>Original</div>}
             {experimentType === '1' && <div>Variant 1</div>}
         </>
     );
