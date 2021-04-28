@@ -12,7 +12,7 @@ function PostListPage() {
         let intervalId = setInterval(() => {
             if (window.google_optimize !== undefined) {
                 const variant = window.google_optimize.get(
-                    'HAoWNOD3QfenD0Fjsag7LQ'
+                    's0SRBL5pSa-uu_ba8i8CIg'
                 );
                 setExperimentType(variant);
                 console.log(variant);
