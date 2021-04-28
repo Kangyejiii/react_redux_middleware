@@ -3,21 +3,24 @@ import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
 import PostListContainer from '../container/PostListContainer';
 function PostListPage() {
-    // const [variant, setVariant] = useState();
-
-    // useEffect(() => {
-    //     if (window.dataLayer) {
-    //         window.dataLayer.push({ event: 'optimize.activate' });
-    //     }
-    //     let id = setInterval(() => {
-    //         if (window.google_optimize !== undefined) {
-    //             const variantValue = window.google_optimize.get('OPT-53H6X5M');
-    //             setVariant(variantValue);
-    //         }
-    //     }, 100);
-
-    //     return clearInterval(id);
-    // }, []);
+    const [experimentType, setExperimentType] = useState('0');
+    useEffect(() => {
+        if (window && window.dataLayer && !isLoadingExperiment) {
+            window.dataLayer.push({
+                event: 'optimize.activate',
+                eventCallback: () => {
+                    const experimentType =
+                        window.google_optimize &&
+                        window.google_optimize.get('YtOHnseDRmeXDS6hlb3cYw');
+                    // undefined - when experiment isn't running
+                    // 1,2,3 - when ant variant is running
+                    if (experimentType) {
+                        setExperimentType(experimentType);
+                    }
+                },
+            });
+        }
+    }, []);
 
     return (
         <>
@@ -47,6 +50,9 @@ function PostListPage() {
                 {' '}
                 B 동영상 클릭
             </button>
+            {experimentType === '0' && <div>Original</div>}
+            {experimentType === '1' && <div>Variant 1</div>}
+            {experimentType === '2' && <div>Variant 2</div>}
         </>
     );
 }
