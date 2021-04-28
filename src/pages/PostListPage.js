@@ -3,24 +3,26 @@ import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
 import PostListContainer from '../container/PostListContainer';
 function PostListPage() {
-    const [experimentType, setExperimentType] = useState('0');
-    useEffect(() => {
+    const [experimentType, setExperimentType] = useState(undefined);
+
+    async function testOptimize() {
         if (window.dataLayer) {
-            window.dataLayer.push({ event: 'optimize.activate' });
+            await window.dataLayer.push({ event: 'optimize.activate' });
         }
-        function checkGoogleOptimizeLoading() {
+        let intervalId = setInterval(() => {
             if (window.google_optimize !== undefined) {
                 const variant = window.google_optimize.get(
-                    'pnjUpQe_TrmxmFDZlzNZnQ'
+                    'HAoWNOD3QfenD0Fjsag7LQ'
                 );
                 setExperimentType(variant);
-                console.log('ss');
-                console.log(window.google_optimize, variant);
-            } else {
-                setTimeout(checkGoogleOptimizeLoading, 100);
+                console.log(variant);
             }
-        }
-        checkGoogleOptimizeLoading();
+        }, 100);
+        return clearInterval(intervalId);
+    }
+
+    useEffect(() => {
+        testOptimize();
     }, []);
 
     return (
@@ -52,7 +54,7 @@ function PostListPage() {
                 B 동영상 클릭
             </button>
             <div>test</div>
-            {experimentType == 0 && <div>Original</div>}
+            {!experimentType && <div>Original</div>}
             {experimentType === '1' && <div>Variant 1</div>}
         </>
     );
